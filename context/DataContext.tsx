@@ -14,11 +14,14 @@ type DataContextType = {
   users: User[] | null;
   loading: boolean;
   refetch: () => void;
+  updateUser: (userId: number, updates: Partial<User>) => void;
+  toggleBookmark: (userId: number) => void;
 };
 
 type DataProviderProps = {
   children: ReactNode;
 };
+
 export interface ApiResponse {
   users: User[];
   total: number;
@@ -61,12 +64,40 @@ export const DataProvider = ({ children }: DataProviderProps) => {
     }
   };
 
+  const updateUser = (userId: number, updates: Partial<User>) => {
+    setUsers(prevUsers => {
+      if (!prevUsers) return null;
+      return prevUsers.map(user => 
+        user.id === userId 
+          ? { ...user, ...updates }
+          : user
+      );
+    });
+  };
+
+  const toggleBookmark = (userId: number) => {
+    setUsers(prevUsers => {
+      if (!prevUsers) return null;
+      return prevUsers.map(user => 
+        user.id === userId 
+          ? { ...user, isBookmarked: !user.isBookmarked }
+          : user
+      );
+    });
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
-    <DataContext.Provider value={{ users, loading, refetch: fetchData }}>
+    <DataContext.Provider value={{ 
+      users, 
+      loading, 
+      refetch: fetchData,
+      updateUser,
+      toggleBookmark
+    }}>
       {children}
     </DataContext.Provider>
   );
