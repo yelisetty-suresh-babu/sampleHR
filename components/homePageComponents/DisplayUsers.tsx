@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useData } from "../../context/DataContext";
+import { useDataStore } from "../../store/useDataStore"; // Changed import
 import { useUserFiltering } from "../../hooks/useUserFiltering";
 import { Input, Select, Button } from "antd";
 import { SearchProps } from "antd/es/input";
@@ -8,14 +8,17 @@ import CustomSpinner from "./CustomSpinner";
 import UserCard from "./UserCard";
 import { RefreshCw } from "lucide-react";
 import EmptyUsers from "./EmptyUsers";
-
+import { FloatButton } from "antd";
 import { BackgroundBeams } from "../UIComponents/BackgroundBeams";
-
+import { Tooltip } from "antd";
+import { useRouter } from "next/navigation";
 const { Search } = Input;
 const { Option } = Select;
 
 const DisplayUsers = () => {
-  const { users, loading, refetch } = useData();
+  const router = useRouter();
+  const { users, loading, refetch } = useDataStore();
+
   const {
     searchValue,
     selectedDepartments,
@@ -44,9 +47,15 @@ const DisplayUsers = () => {
   const totalUsers = users?.length || 0;
 
   return (
-    <div className="w-full flex flex-col items-center justify-center p-4  min-h-screen">
+    <div className="w-full flex flex-col items-center  p-4  min-h-screen">
       <BackgroundBeams className="pointer-events-none fixed top-0 left-0 w-full h-full " />
-
+      <Tooltip title="Bookmarks" placement="left">
+        <FloatButton
+          type="primary"
+          icon="B"
+          onClick={() => router.push("/bookmarks")}
+        />
+      </Tooltip>
       <div className="w-full max-w-7xl flex flex-col gap-6 z-10">
         <div className="text-center mb-4">
           <h1 className="text-6xl font-bold text-gray-900 mb-2">
@@ -149,34 +158,11 @@ const DisplayUsers = () => {
               ))}
             </div>
           ) : (
-            // <div className="text-center py-12 bg-white rounded-xl shadow-sm border border-gray-100">
-            //   <div className="text-gray-400 mb-4">
-            //     <svg
-            //       className="mx-auto h-12 w-12"
-            //       fill="none"
-            //       viewBox="0 0 24 24"
-            //       stroke="currentColor"
-            //     >
-            //       <path
-            //         strokeLinecap="round"
-            //         strokeLinejoin="round"
-            //         strokeWidth={2}
-            //         d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-            //       />
-            //     </svg>
-            //   </div>
-            //   <h3 className="text-lg font-medium text-gray-900 mb-2">
-            //     No users found
-            //   </h3>
-            //   <p className="text-gray-500 mb-4">
-            //     Try adjusting your search terms or filters to find what youre
-            //     looking for.
-            //   </p>
-            //   <Button onClick={resetFilters} type="primary">
-            //     Clear All Filters
-            //   </Button>
-            // </div>
-            <EmptyUsers resetFilters={resetFilters} />
+            <EmptyUsers
+              resetFilters={resetFilters}
+              message=" Try adjusting your search terms or filters to find what youre looking
+            for."
+            />
           )}
         </div>
       </div>

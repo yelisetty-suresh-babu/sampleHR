@@ -1,15 +1,9 @@
-import "./globals.css";
+import "./../globals.css";
 import { ReactNode } from "react";
-
 import React from "react";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 
-export const metadata = {
-  title: "Sample HR Website",
-  description: "Context API with Next.js App Router",
-};
-
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function BookmarksLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>

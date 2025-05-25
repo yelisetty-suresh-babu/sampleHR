@@ -2,10 +2,11 @@ import React from "react";
 import { Button } from "antd";
 
 interface EmptyUsersProps {
-  resetFilters: () => void;
+  resetFilters?: () => void;
+  message: string;
 }
 
-const EmptyUsers = ({ resetFilters }: EmptyUsersProps) => {
+const EmptyUsers = ({ resetFilters,message }: EmptyUsersProps) => {
   return (
     <div className="text-center py-12 bg-white rounded-xl shadow-sm border border-gray-100">
       <div className="text-gray-400 mb-4">
@@ -25,12 +26,15 @@ const EmptyUsers = ({ resetFilters }: EmptyUsersProps) => {
       </div>
       <h3 className="text-lg font-medium text-gray-900 mb-2">No users found</h3>
       <p className="text-gray-500 mb-4">
-        Try adjusting your search terms or filters to find what youre looking
-        for.
+       {message}
       </p>
-      <Button onClick={resetFilters} type="primary">
-        Clear All Filters
-      </Button>
+      {resetFilters ? (
+        <Button onClick={resetFilters} type="primary">
+          Clear All Filters
+        </Button>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

@@ -10,7 +10,7 @@ import {
 import React from "react";
 import StarRating from "./StarRating";
 
-import { useData } from "../../context/DataContext";
+import { useDataStore } from "../../store/useDataStore"; // Changed import
 import Image from "next/image";
 import { message } from "antd";
 
@@ -19,7 +19,8 @@ interface UserCardProps {
 }
 
 const UserCard = ({ user }: UserCardProps) => {
-  const { toggleBookmark } = useData();
+  // Changed from useData() to useDataStore() with direct property access
+  const toggleBookmark = useDataStore((state) => state.toggleBookmark);
   const [messageApi, contextHolder] = message.useMessage();
 
   const handleView = () => {

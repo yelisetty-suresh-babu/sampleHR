@@ -1,6 +1,6 @@
 import React from "react";
 import DisplayUsers from "../components/homePageComponents/DisplayUsers";
-import { Particles } from "@/components/magicui/particles";
+
 
 export default function Home() {
   return (
