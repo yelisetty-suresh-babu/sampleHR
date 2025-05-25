@@ -1,6 +1,10 @@
 import { Star } from "lucide-react";
 
-const StarRating = ({ rating }: { rating: number }) => {
+interface StarRatingProps {
+  rating: number;
+  flag?: boolean;
+}
+const StarRating = ({ rating }: StarRatingProps) => {
   return (
     <div className="flex items-center gap-1">
       {[1, 2, 3, 4, 5].map((star) => (
@@ -12,7 +16,6 @@ const StarRating = ({ rating }: { rating: number }) => {
           }`}
         />
       ))}
-      <span className="ml-2 text-sm text-gray-600 font-medium">{rating}/5</span>
     </div>
   );
 };

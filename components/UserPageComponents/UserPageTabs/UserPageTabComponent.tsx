@@ -1,4 +1,4 @@
-import CustomSpinner from "@/components/homePageComponents/CustomSpinner";
+import CustomSpinner from "@/components/HomePageComponents/CustomSpinner";
 import React, { useEffect, useState } from "react";
 
 interface UserPageTabComponentProps {

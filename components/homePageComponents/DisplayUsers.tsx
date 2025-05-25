@@ -4,14 +4,17 @@ import { useDataStore } from "../../store/useDataStore"; // Changed import
 import { useUserFiltering } from "../../hooks/useUserFiltering";
 import { Input, Select, Button } from "antd";
 import { SearchProps } from "antd/es/input";
-import CustomSpinner from "./CustomSpinner";
-import UserCard from "./UserCard";
+
 import { RefreshCw } from "lucide-react";
-import EmptyUsers from "./EmptyUsers";
+
 import { FloatButton } from "antd";
 import { BackgroundBeams } from "../UIComponents/BackgroundBeams";
-import { Tooltip } from "antd";
+
 import { useRouter } from "next/navigation";
+import { BookOutlined, LineChartOutlined } from "@ant-design/icons";
+import CustomSpinner from "./CustomSpinner";
+import EmptyUsers from "./EmptyUsers";
+import UserCard from "./UserCard";
 const { Search } = Input;
 const { Option } = Select;
 
@@ -49,13 +52,20 @@ const DisplayUsers = () => {
   return (
     <div className="w-full flex flex-col items-center  p-4  min-h-screen">
       <BackgroundBeams className="pointer-events-none fixed top-0 left-0 w-full h-full " />
-      <Tooltip title="Bookmarks" placement="left">
+      <FloatButton.Group shape="circle" style={{ insetInlineEnd: 24 }}>
         <FloatButton
           type="primary"
-          icon="B"
+          icon={<BookOutlined />}
           onClick={() => router.push("/bookmarks")}
+          tooltip={{ title: "Bookmarks", placement: "left" }}
         />
-      </Tooltip>
+        <FloatButton
+          type="primary"
+          icon={<LineChartOutlined />}
+          onClick={() => router.push("/analytics")}
+          tooltip={{ title: "Analytics", placement: "left" }}
+        />
+      </FloatButton.Group>
       <div className="w-full max-w-7xl flex flex-col gap-6 z-10">
         <div className="text-center mb-4">
           <h1 className="text-6xl font-bold text-gray-900 mb-2">

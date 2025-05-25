@@ -1,6 +1,5 @@
 import React from "react";
-import DisplayUsers from "../components/homePageComponents/DisplayUsers";
-
+import DisplayUsers from "../components/HomePageComponents/DisplayUsers";
 
 export default function Home() {
   return (

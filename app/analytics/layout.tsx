@@ -4,7 +4,7 @@ import React from "react";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { BackgroundBeams } from "@/components/UIComponents/BackgroundBeams";
 
-export default function BookmarksLayout({ children }: { children: ReactNode }) {
+export default function AnalyticsLayout({ children }: { children: ReactNode }) {
   return (
     <div>
       <div>
