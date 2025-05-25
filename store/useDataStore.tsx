@@ -21,8 +21,7 @@ interface DataStore {
   refetch: () => Promise<void>;
   updateUser: (userId: number, updates: Partial<User>) => void;
   toggleBookmark: (userId: number) => void;
-  addUser: (user: Omit<User, "id">) => void;
-  removeUser: (userId: number) => void;
+  getUser: (userId: number) => User;
   getBookmarkedUsers: () => User[];
   clearCache: () => void;
   setLoading: (loading: boolean) => void;
@@ -116,27 +115,12 @@ export const useDataStore = create<DataStore>()(
         set({ users: updatedUsers });
       },
 
-      addUser: (newUser: Omit<User, "id">) => {
+      getUser: (userId: number): User => {
         const { users } = get();
-        if (!users) return;
+        if (!users) return {} as User;
 
-        const maxId = Math.max(...users.map((u) => u.id), 0);
-        const userWithId: User = {
-          ...newUser,
-          id: maxId + 1,
-        };
-
-        set({ users: [...users, userWithId] });
+        return users.find((user) => user.id == userId)!;
       },
-
-      removeUser: (userId: number) => {
-        const { users } = get();
-        if (!users) return;
-
-        const filteredUsers = users.filter((user) => user.id !== userId);
-        set({ users: filteredUsers });
-      },
-
       getBookmarkedUsers: (): User[] => {
         const { users } = get();
         if (!users) return [];

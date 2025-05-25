@@ -13,19 +13,19 @@ import StarRating from "./StarRating";
 import { useDataStore } from "../../store/useDataStore"; // Changed import
 import Image from "next/image";
 import { message } from "antd";
+import { useRouter } from "next/navigation";
 
 interface UserCardProps {
   user: User;
 }
 
 const UserCard = ({ user }: UserCardProps) => {
-  // Changed from useData() to useDataStore() with direct property access
+  const router = useRouter();
   const toggleBookmark = useDataStore((state) => state.toggleBookmark);
   const [messageApi, contextHolder] = message.useMessage();
 
   const handleView = () => {
-    // You can replace this with your actual view logic
-    alert(`Viewing details for ${user.firstName} ${user.lastName}`);
+    router.push(`/employee/${user.id}`);
   };
 
   const handleBookmark = () => {
@@ -95,7 +95,7 @@ const UserCard = ({ user }: UserCardProps) => {
       <div className="flex gap-2 pt-4 border-t border-gray-100">
         <button
           onClick={handleView}
-          className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors duration-200 font-medium"
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors duration-200 font-medium overflow-hidden"
         >
           <Eye size={16} />
           View
@@ -107,7 +107,7 @@ const UserCard = ({ user }: UserCardProps) => {
             user.isBookmarked
               ? "bg-blue-500 hover:bg-blue-600 text-white"
               : "bg-blue-100 hover:bg-blue-200 text-blue-700"
-          }`}
+          } overflow-hidden`}
         >
           <Bookmark
             size={16}
@@ -120,7 +120,7 @@ const UserCard = ({ user }: UserCardProps) => {
           onClick={() =>
             messageApi.success(`Successfully Promoted ${user.firstName}`)
           }
-          className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-green-100 hover:bg-green-200 text-green-700 rounded-lg transition-colors duration-200 font-medium"
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-green-100 hover:bg-green-200 text-green-700 rounded-lg transition-colors duration-200 font-medium overflow-hidden"
         >
           <TrendingUp size={16} />
           Promote
