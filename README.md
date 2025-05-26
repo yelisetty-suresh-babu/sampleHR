@@ -4,6 +4,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ---
 
+### Public Repo Link https://github.com/yelisetty-suresh-babu/sampleHR
+
 ## 🚀 Getting Started
 
 Follow the steps below to set up the project locally:
@@ -11,6 +13,10 @@ Follow the steps below to set up the project locally:
 ```bash
 # Clone the repository
 git clone https://github.com/yelisetty-suresh-babu/sampleHR
+
+or
+
+Unzip the Zip File
 
 # Navigate to the project directory
 cd sampleHR
@@ -68,10 +74,10 @@ Visit [http://localhost:3000](http://localhost:3000) in your browser to view the
 - Tabbed UI with:
 
   - `Overview`, `Projects`, `Feedback` (dynamic content loading)
-<p align="center">
-  <img src="public/employee_light.png" alt="Employee View Light theme" width="45%" />
-  <img src="public/employee_dark.png" alt="Employee View Dark theme" width="45%" />
-</p>
+  <p align="center">
+    <img src="public/employee_light.png" alt="Employee View Light theme" width="45%" />
+    <img src="public/employee_dark.png" alt="Employee View Dark theme" width="45%" />
+  </p>
 
 ### 4. 📌 Bookmark Manager (`/bookmarks`)
 
@@ -80,10 +86,10 @@ Visit [http://localhost:3000](http://localhost:3000) in your browser to view the
 
   - Remove bookmarks
   - Trigger UI actions like `Promote` or `Assign to Project`
-<p align="center">
-  <img src="public/bookmarks_light.png" alt="Bookmarks View Light theme" width="45%" />
-  <img src="public/bookmarks_dark.png" alt="Bookmarks View Dark theme" width="45%" />
-</p>
+  <p align="center">
+    <img src="public/bookmarks_light.png" alt="Bookmarks View Light theme" width="45%" />
+    <img src="public/bookmarks_dark.png" alt="Bookmarks View Dark theme" width="45%" />
+  </p>
 
 ### 5. 📊 Analytics Page (`/analytics`)
 
@@ -102,6 +108,7 @@ Visit [http://localhost:3000](http://localhost:3000) in your browser to view the
   <img src="public/analytics1_dark.png" alt="Analytics View Dark Mode" width="45%" />
   <img src="public/analytics2_dark.png" alt="Analytics View Dark Mode" width="45%" />
 </p>
+
 ---
 
 ## 🌟 Additional Features
