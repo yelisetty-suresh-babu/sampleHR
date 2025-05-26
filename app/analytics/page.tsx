@@ -2,7 +2,7 @@
 "use client";
 import CustomSpinner from "@/components/HomePageComponents/CustomSpinner";
 import { useDataStore } from "@/store/useDataStore";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Button, Tabs, TabsProps } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -11,7 +11,7 @@ import DepartmentWiseRatingsChart from "@/components/AnalyticsPageComponents/Dep
 import BookmarksTrendsChart from "@/components/AnalyticsPageComponents/BookmarksTrendsChart";
 import { ModeToggle } from "@/components/ThemeComponents/ThemeToggleButton";
 
-const Analyticsspage = () => {
+const AnalyticsPageDuplicate = () => {
   const [width, height] = useWindowSize();
   const { users, loading } = useDataStore();
   const router = useRouter();
@@ -113,4 +113,12 @@ const Analyticsspage = () => {
   );
 };
 
-export default Analyticsspage;
+const AnalyticsPage = () => {
+  return (
+    <Suspense>
+      <AnalyticsPageDuplicate />;
+    </Suspense>
+  );
+};
+
+export default AnalyticsPage;
