@@ -5,22 +5,20 @@ import { useUserFiltering } from "../../hooks/useUserFiltering";
 import { Input, Select, Button } from "antd";
 import { SearchProps } from "antd/es/input";
 
-import { RefreshCw } from "lucide-react";
+// import { BackgroundBeams } from "../UIComponents/BackgroundBeams";
 
-import { FloatButton } from "antd";
-import { BackgroundBeams } from "../UIComponents/BackgroundBeams";
-
-import { useRouter } from "next/navigation";
-import { BookOutlined, LineChartOutlined } from "@ant-design/icons";
 import CustomSpinner from "./CustomSpinner";
 import EmptyUsers from "./EmptyUsers";
 import UserCard from "./UserCard";
+import { useTheme } from "next-themes";
+
 const { Search } = Input;
 const { Option } = Select;
 
 const DisplayUsers = () => {
-  const router = useRouter();
-  const { users, loading, refetch } = useDataStore();
+  const { users, loading } = useDataStore();
+  const { theme } = useTheme();
+  console.log("theme", theme);
 
   const {
     searchValue,
@@ -45,52 +43,31 @@ const DisplayUsers = () => {
 
   if (loading) return <CustomSpinner />;
 
-  const bookmarkedCount =
-    users?.filter((user) => user.isBookmarked).length || 0;
-  const totalUsers = users?.length || 0;
-
   return (
     <div className="w-full flex flex-col items-center  p-4  min-h-screen">
-      <BackgroundBeams className="pointer-events-none fixed top-0 left-0 w-full h-full " />
-      <FloatButton.Group shape="circle" style={{ insetInlineEnd: 24 }}>
-        <FloatButton
-          type="primary"
-          icon={<BookOutlined />}
-          onClick={() => router.push("/bookmarks")}
-          tooltip={{ title: "Bookmarks", placement: "left" }}
-        />
-        <FloatButton
-          type="primary"
-          icon={<LineChartOutlined />}
-          onClick={() => router.push("/analytics")}
-          tooltip={{ title: "Analytics", placement: "left" }}
-        />
-      </FloatButton.Group>
+      {/* <BackgroundBeams className="pointer-events-none fixed top-0 left-0 w-full h-full " /> */}
       <div className="w-full max-w-7xl flex flex-col gap-6 z-10">
         <div className="text-center mb-4">
-          <h1 className="text-6xl font-bold text-gray-900 mb-2">
+          <h1
+            className={`text-6xl font-bold text-gray-900 mb-2 ${
+              theme === "dark" ? "text-white" : ""
+            }`}
+          >
             Team Directory
           </h1>
-          <p className="text-gray-600 mb-4 text-xl">
+          <p
+            className={`text-gray-600 mb-4 text-xl
+          
+          ${theme === "dark" ? "text-white" : ""}
+          `}
+          >
             Manage your team members and their performance
           </p>
-          <div className="flex items-center justify-center gap-4 flex-wrap">
-            <Button
-              onClick={refetch}
-              icon={<RefreshCw size={16} />}
-              size="large"
-              type="primary"
-            >
-              Refresh Data
-            </Button>
-            <div className="text-sm text-gray-500 bg-white px-4 py-4 rounded-lg shadow-sm">
-              Total: {totalUsers} | Bookmarked: {bookmarkedCount} | Showing:{" "}
-              {filteredUsers.length}
-            </div>
-          </div>
         </div>
 
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div
+          className={`bg-whi z-10  p-6 rounded-xl shadow-sm border border-gray-300 `}
+        >
           <div className="flex flex-col gap-4">
             <Search
               placeholder="Search by name or email"

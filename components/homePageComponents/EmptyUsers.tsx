@@ -8,7 +8,7 @@ interface EmptyUsersProps {
 
 const EmptyUsers = ({ resetFilters,message }: EmptyUsersProps) => {
   return (
-    <div className="text-center py-12 bg-white rounded-xl shadow-sm border border-gray-100">
+    <div className="text-center py-12 bg-whe rounded-xl shadow-sm border bord-gray-100">
       <div className="text-gray-400 mb-4">
         <svg
           className="mx-auto h-12 w-12"

@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import useWindowSize from "@/hooks/useWindowSize";
 import DepartmentWiseRatingsChart from "@/components/AnalyticsPageComponents/DepartmentWiseRatingsChart";
 import BookmarksTrendsChart from "@/components/AnalyticsPageComponents/BookmarksTrendsChart";
+import { ModeToggle } from "@/components/ThemeComponents/ThemeToggleButton";
 
 const Analyticsspage = () => {
   const [width, height] = useWindowSize();
@@ -16,11 +17,9 @@ const Analyticsspage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Get current tab from URL or default to "1"
   const currentTab = searchParams.get("tab") || "departmentRatings";
   const [activeKey, setActiveKey] = useState(currentTab);
 
-  // Update activeKey when URL changes
   useEffect(() => {
     const tabFromUrl = searchParams.get("tab") || "departmentRatings";
     setActiveKey(tabFromUrl);
@@ -71,13 +70,11 @@ const Analyticsspage = () => {
     console.log("Tab changed to:", key);
     setActiveKey(key);
 
-    // Update URL with new tab
     const current = new URLSearchParams(Array.from(searchParams.entries()));
     current.set("tab", key);
     const search = current.toString();
     const query = search ? `?${search}` : "";
 
-    // Use router.replace to avoid adding to browser history for each tab change
     router.replace(`${window.location.pathname}${query}`);
   };
 
@@ -85,11 +82,12 @@ const Analyticsspage = () => {
     <React.Fragment>
       <Button
         className="absolute right-0 top-0 mt-4 ml-4 z-10"
-        type="primary"
         onClick={() => router.back()}
       >
         <ArrowLeftOutlined />
       </Button>
+      <ModeToggle />
+
       <div
         className="flex items-center justify-center p-4"
         style={{
@@ -98,6 +96,8 @@ const Analyticsspage = () => {
         }}
       >
         <div className="w-full h-full max-w-7xl">
+          <h1 className="text-4xl font-bold">Analytics</h1>
+
           <Tabs
             activeKey={activeKey}
             items={items}

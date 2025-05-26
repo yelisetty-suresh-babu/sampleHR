@@ -7,6 +7,7 @@ import { useParams, useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import { ModeToggle } from "@/components/ThemeComponents/ThemeToggleButton";
 
 const Employeepage = () => {
   const router = useRouter();
@@ -18,12 +19,13 @@ const Employeepage = () => {
     <React.Fragment>
       <Button
         className="absolute right-0 top-0 mt-4 ml-4"
-        type="primary"
         onClick={() => router.back()}
       >
         <ArrowLeftOutlined />
       </Button>
       <div className="flex gap-y-6 flex-col items-center ">
+        <ModeToggle />
+
         <UserPageHeader user={user} />
         <UserPageTabs user={user} />
       </div>
