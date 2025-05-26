@@ -21,6 +21,10 @@ Unzip the Zip File
 # Navigate to the project directory
 cd sampleHR
 
+or 
+
+cd into the unzipped folder
+
 # Install dependencies
 npm install
 
