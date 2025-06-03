@@ -1,7 +1,7 @@
 "use client";
-import CustomSpinner from "@/components/HomePageComponents/CustomSpinner";
-import EmptyUsers from "@/components/HomePageComponents/EmptyUsers";
-import UserCard from "@/components/HomePageComponents/UserCard";
+import CustomSpinner from "./../../components/HomePageComponents/CustomSpinner";
+import EmptyUsers from "./../../components/HomePageComponents/EmptyUsers";
+import UserCard from "./../../components/HomePageComponents/UserCard";
 import { useDataStore } from "@/store/useDataStore";
 
 import React from "react";
