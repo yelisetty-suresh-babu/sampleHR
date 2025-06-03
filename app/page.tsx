@@ -13,8 +13,192 @@ import { LoadingOutlined } from "@ant-design/icons";
 import useWindowSize from "@/hooks/useWindowSize";
 import { useDataStore } from "@/store/useDataStore";
 import { useUserFiltering } from "@/hooks/useUserFiltering";
-import UserCard from "@/components/HomePageComponents/UserCard";
-import EmptyUsers from "@/components/HomePageComponents/EmptyUsers";
+
+interface EmptyUsersProps {
+  resetFilters?: () => void;
+  message: string;
+}
+
+const EmptyUsers = ({ resetFilters, message }: EmptyUsersProps) => {
+  return (
+    <div className="text-center py-12 bg-whe rounded-xl shadow-sm border bord-gray-100">
+      <div className="text-gray-400 mb-4">
+        <svg
+          className="mx-auto h-12 w-12"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+          />
+        </svg>
+      </div>
+      <h3 className="text-lg font-medium text-gray-900 mb-2">No users found</h3>
+      <p className="text-gray-500 mb-4">{message}</p>
+      {resetFilters ? (
+        <Button onClick={resetFilters} type="primary">
+          Clear All Filters
+        </Button>
+      ) : (
+        <></>
+      )}
+    </div>
+  );
+};
+
+import { User } from "@/interfaces/UserInterface";
+import {
+  Bookmark,
+  Calendar,
+  Eye,
+  Mail,
+  MapPin,
+  Star,
+  TrendingUp,
+} from "lucide-react";
+
+import Image from "next/image";
+
+import { Modal } from "antd";
+import { useRouter } from "next/navigation";
+
+interface UserCardProps {
+  user: User;
+}
+
+const UserCard = ({ user }: UserCardProps) => {
+  const router = useRouter();
+  const toggleBookmark = useDataStore((state) => state.toggleBookmark);
+
+  const [modal, contextHolder] = Modal.useModal();
+
+  const handleView = () => {
+    router.push(`/employee/${user.id}`);
+  };
+
+  const handleBookmark = () => {
+    toggleBookmark(user.id);
+  };
+  const success = () => {
+    modal.success({
+      content: (
+        <div style={{ fontSize: "16px", fontWeight: 700 }}>
+          Successfully promoted {user.firstName}
+        </div>
+      ),
+      maskClosable: true,
+      footer: null,
+    });
+  };
+
+  return (
+    <div className="bg-whte rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-600">
+      {contextHolder}
+
+      <div className="flex items-start gap-4 mb-4">
+        <div className="relative">
+          <Image
+            src={
+              "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740"
+            }
+            alt={`${user.firstName} ${user.lastName}`}
+            width={64}
+            height={64}
+            className="w-16 h-16 rounded-full object-cover ring-2 ring-blue-100"
+          />
+          <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
+        </div>
+
+        <div className="flex-1 min-w-0">
+          <h3 className="text-xl font-bold text-gra truncate">
+            {user.firstName} {user.lastName}
+          </h3>
+          <div className="flex items-center gap-1  mt-1">
+            <Mail size={14} />
+            <span className="text-sm truncate">{user.email}</span>
+          </div>
+        </div>
+
+        {user.isBookmarked && (
+          <Bookmark size={20} className="text-blue-500 fill-blue-500" />
+        )}
+      </div>
+
+      <div className="space-y-3 mb-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 ">
+            <Calendar size={14} />
+            <span className="text-sm">Age: {user.age}</span>
+          </div>
+          <div className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
+            {user.company.department}
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 ">
+          <MapPin size={14} />
+          <span className="text-sm">
+            {user.address.city}, {user.address.country}
+          </span>
+        </div>
+
+        <div className="pt-2">
+          <p className="text-sm font-medium  mb-2">Performance Rating</p>
+          <div className="flex items-center gap-1">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <Star
+                key={star}
+                size={16}
+                className={`${
+                  star <= user.rating
+                    ? "fill-yellow-400 text-yellow-400"
+                    : "text-gray-300"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex gap-2 pt-4 border-t border-gray-100">
+        <button
+          onClick={handleView}
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors duration-200 font-medium overflow-hidden"
+        >
+          <Eye size={16} />
+          View
+        </button>
+
+        <button
+          onClick={handleBookmark}
+          className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg transition-colors duration-200 font-medium ${
+            user.isBookmarked
+              ? "bg-blue-500 hover:bg-blue-600 text-white"
+              : "bg-blue-100 hover:bg-blue-200 text-blue-700"
+          } overflow-hidden`}
+        >
+          <Bookmark
+            size={16}
+            className={user.isBookmarked ? "fill-current" : ""}
+          />
+          {user.isBookmarked ? "Unbookmark" : "Bookmark"}
+        </button>
+
+        <button
+          onClick={success}
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-green-100 hover:bg-green-200 text-green-700 rounded-lg transition-colors duration-200 font-medium overflow-hidden"
+        >
+          <TrendingUp size={16} />
+          Promote
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const { Search } = Input;
 const { Option } = Select;
