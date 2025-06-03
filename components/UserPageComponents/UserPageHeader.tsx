@@ -5,7 +5,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { Mail, Phone, MapPin, Building2 } from "lucide-react";
-import StarRating from "./../HomePageComponents/StarRating.tsx";
+import StarRating from "../HomePageComponents/StarRating";
+// import StarRating from "./../HomePageComponents/StarRating.tsx";
 
 interface UserPageHeaderProps {
   user: User | null;

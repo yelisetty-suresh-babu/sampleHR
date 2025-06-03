@@ -1,7 +1,7 @@
 "use client";
-import CustomSpinner from "./../../components/HomePageComponents/CustomSpinner.tsx";
-import EmptyUsers from "./../../components/HomePageComponents/EmptyUsers.tsx";
-import UserCard from "./../../components/HomePageComponents/UserCard.tsx";
+// import CustomSpinner from "./../../components/HomePageComponents/CustomSpinner.tsx";
+// import EmptyUsers from "./../../components/HomePageComponents/EmptyUsers.tsx";
+// import UserCard from "./../../components/HomePageComponents/UserCard.tsx";
 import { useDataStore } from "@/store/useDataStore";
 
 import React from "react";
@@ -9,6 +9,9 @@ import { Button } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { ModeToggle } from "@/components/ThemeComponents/ThemeToggleButton";
+import CustomSpinner from "@/components/HomePageComponents/CustomSpinner";
+import UserCard from "@/components/HomePageComponents/UserCard";
+import EmptyUsers from "@/components/HomePageComponents/EmptyUsers";
 
 const Bookmarkspage = () => {
   const { loading, getBookmarkedUsers } = useDataStore();

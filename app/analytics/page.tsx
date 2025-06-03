@@ -1,6 +1,7 @@
 // AnalyticsPage.tsx
 "use client";
-import CustomSpinner from "./../../components/HomePageComponents/CustomSpinner.tsx";
+// import CustomSpinner from "./../../components/HomePageComponents/CustomSpinner.tsx";
+
 import { useDataStore } from "@/store/useDataStore";
 import React, { Suspense, useEffect, useState } from "react";
 import { Button, Tabs, TabsProps } from "antd";
@@ -10,6 +11,7 @@ import useWindowSize from "@/hooks/useWindowSize";
 import DepartmentWiseRatingsChart from "@/components/AnalyticsPageComponents/DepartmentWiseRatingsChart";
 import BookmarksTrendsChart from "@/components/AnalyticsPageComponents/BookmarksTrendsChart";
 import { ModeToggle } from "@/components/ThemeComponents/ThemeToggleButton";
+import CustomSpinner from "@/components/HomePageComponents/CustomSpinner";
 
 const AnalyticsPageDuplicate = () => {
   const [width, height] = useWindowSize();
