@@ -1,4 +1,5 @@
-import CustomSpinner from "@/components/HomePageComponents/CustomSpinner";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 import React, { useEffect, useState } from "react";
 
 interface UserPageTabComponentProps {
@@ -17,7 +18,16 @@ const UserPageTabComponent = ({ message }: UserPageTabComponentProps) => {
   }, []);
 
   if (loading) {
-    return <CustomSpinner customHeight={200} />;
+    return (
+      <div
+        className=" h-screen flex items-center justify-center"
+        style={{
+          height: 200,
+        }}
+      >
+        <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
+      </div>
+    );
   }
 
   return (

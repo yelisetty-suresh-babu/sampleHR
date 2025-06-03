@@ -2,15 +2,16 @@
 import React from "react";
 import { useDataStore } from "../../store/useDataStore"; // Changed import
 import { useUserFiltering } from "../../hooks/useUserFiltering";
-import { Input, Select, Button } from "antd";
+import { Input, Select, Button, Spin } from "antd";
 import { SearchProps } from "antd/es/input";
 
 // import { BackgroundBeams } from "../UIComponents/BackgroundBeams";
 
-import CustomSpinner from "./CustomSpinner";
 import EmptyUsers from "./EmptyUsers";
 import UserCard from "./UserCard";
 import { useTheme } from "next-themes";
+import { LoadingOutlined } from "@ant-design/icons";
+import useWindowSize from "@/hooks/useWindowSize";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -19,6 +20,7 @@ const DisplayUsers = () => {
   const { users, loading } = useDataStore();
   const { theme } = useTheme();
   console.log("theme", theme);
+  const [, height] = useWindowSize();
 
   const {
     searchValue,
@@ -41,7 +43,17 @@ const DisplayUsers = () => {
     setSearchValue(e.target.value);
   };
 
-  if (loading) return <CustomSpinner />;
+  if (loading)
+    return (
+      <div
+        className=" h-screen flex items-center justify-center"
+        style={{
+          height: height - 100,
+        }}
+      >
+        <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
+      </div>
+    );
 
   return (
     <div className="w-full flex flex-col items-center  p-4  min-h-screen">
