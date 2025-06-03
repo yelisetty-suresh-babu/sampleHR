@@ -4,9 +4,9 @@ import { User } from "@/interfaces/UserInterface";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
-import { Mail, Phone, MapPin, Building2 } from "lucide-react";
-import StarRating from "../HomePageComponents/StarRating";
-// import StarRating from "./../HomePageComponents/StarRating.tsx";
+import { Mail, Phone, MapPin, Building2, Star } from "lucide-react";
+
+
 
 interface UserPageHeaderProps {
   user: User | null;
@@ -70,7 +70,20 @@ const UserPageHeader = ({ user }: UserPageHeaderProps) => {
           </div>
 
           <div className="flex flex-col items-center lg:items-start gap-2">
-            <StarRating rating={user.rating} />
+
+            <div className="flex items-center gap-1">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Star
+                  key={star}
+                  size={16}
+                  className={`${
+                    star <= user.rating
+                      ? "fill-yellow-400 text-yellow-400"
+                      : "text-gray-300"
+                  }`}
+                />
+              ))}
+            </div>
             <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
               {user.rating.toFixed(1)} out of 5.0
             </span>

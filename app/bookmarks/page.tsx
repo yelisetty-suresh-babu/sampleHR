@@ -5,21 +5,33 @@
 import { useDataStore } from "@/store/useDataStore";
 
 import React from "react";
-import { Button } from "antd";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { Button, Spin } from "antd";
+import { ArrowLeftOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { ModeToggle } from "@/components/ThemeComponents/ThemeToggleButton";
-import CustomSpinner from "@/components/HomePageComponents/CustomSpinner";
+
 import UserCard from "@/components/HomePageComponents/UserCard";
 import EmptyUsers from "@/components/HomePageComponents/EmptyUsers";
+import useWindowSize from "@/hooks/useWindowSize";
 
 const Bookmarkspage = () => {
   const { loading, getBookmarkedUsers } = useDataStore();
   const router = useRouter();
   const bookmarked = getBookmarkedUsers();
+  const [, height] = useWindowSize();
 
   console.log("users", bookmarked);
-  if (loading) return <CustomSpinner />;
+  if (loading)
+    return (
+      <div
+        className=" h-screen flex items-center justify-center"
+        style={{
+          height: height - 100,
+        }}
+      >
+        <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
+      </div>
+    );
 
   return (
     <React.Fragment>

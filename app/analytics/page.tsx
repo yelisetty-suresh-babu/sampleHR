@@ -4,14 +4,13 @@
 
 import { useDataStore } from "@/store/useDataStore";
 import React, { Suspense, useEffect, useState } from "react";
-import { Button, Tabs, TabsProps } from "antd";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { Button, Spin, Tabs, TabsProps } from "antd";
+import { ArrowLeftOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useRouter, useSearchParams } from "next/navigation";
 import useWindowSize from "@/hooks/useWindowSize";
 import DepartmentWiseRatingsChart from "@/components/AnalyticsPageComponents/DepartmentWiseRatingsChart";
 import BookmarksTrendsChart from "@/components/AnalyticsPageComponents/BookmarksTrendsChart";
 import { ModeToggle } from "@/components/ThemeComponents/ThemeToggleButton";
-import CustomSpinner from "@/components/HomePageComponents/CustomSpinner";
 
 const AnalyticsPageDuplicate = () => {
   const [width, height] = useWindowSize();
@@ -27,7 +26,17 @@ const AnalyticsPageDuplicate = () => {
     setActiveKey(tabFromUrl);
   }, [searchParams]);
 
-  if (loading) return <CustomSpinner />;
+  if (loading)
+    return (
+      <div
+        className=" h-screen flex items-center justify-center"
+        style={{
+          height: height - 100,
+        }}
+      >
+        <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
+      </div>
+    );
 
   const items: TabsProps["items"] = [
     {
