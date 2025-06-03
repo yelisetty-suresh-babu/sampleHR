@@ -1,6 +1,6 @@
 // AnalyticsPage.tsx
 "use client";
-import CustomSpinner from "./../../components/HomePageComponents/CustomSpinner";
+import CustomSpinner from "./../../components/HomePageComponents/CustomSpinner.tsx";
 import { useDataStore } from "@/store/useDataStore";
 import React, { Suspense, useEffect, useState } from "react";
 import { Button, Tabs, TabsProps } from "antd";
